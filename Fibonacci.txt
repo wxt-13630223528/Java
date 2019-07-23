@@ -1,0 +1,76 @@
+import java.util.Scanner;
+//斐波那契数列定义：F(n)=F(n-1)+F(n-2)（n>=2，n∈N*），其中F(1)=1，F(2)=1
+ 
+public class FibonacciTest {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n ;
+        while(in.hasNext()){
+            n = in.nextInt();
+            System.out.println(Fib(n));
+        }
+    }
+	
+    //方法一：递归 时间复杂度O（2^n）,，随着n的增大呈现指数增长，效率低下
+    //在递归过程中有大量的重复计算
+//    public static int Fib(int n){
+//        if(n<=0){
+//            return 0;
+//        }
+//        if(n==1 || n==2){
+//            return 1;
+//        } else
+//            return Fib(n-2)+Fib(n-1);   //F(n) = F(n-2)+F(n-1)
+//    }
+
+    //方法二：动态规划
+    /*
+      状态: F(n)
+      状态递推：F（n）=F（n-2）+F（-1）
+      初始值：F（1） = F(2)=1
+      返回结果：F（n）
+     */
+//    public static int Fib(int n){
+//        if(n<=0){
+//            return 0;
+//        }
+//        if(n==1){
+//            return 1;
+//        }
+    //申请一个数组，保存子问题，题目要求从第0项开始
+//        int[] record = new int[n+1];
+//        record[0] = 0;
+//        record[1] = 1;
+//        for(int i = 2;i<=n;i++){
+//            record[i] = record[i-1]+record[i-2];
+//        }
+//        return record[n];
+//
+//    }
+
+/*上述空间复杂度为O（n）
+
+   其实F(n)只与它相邻的前两项有关，所以没有必要保存所有子问题的解
+   
+   只需要保存两个子问题的解就可以 下面方法的空间复杂度将为O(1) 
+ */
+
+     public static int Fib(int n){
+          if(n<2){
+             return n;
+          }
+          int a = 0; //第0项
+          int b = 1; //第1项
+          int tmp = 0;
+          for(int i = 2;i<=n;i++){
+              tmp = a+b;
+              //更新值
+              a = b;
+              b = tmp;
+          }
+           return tmp;
+}
+
+}
+
+
